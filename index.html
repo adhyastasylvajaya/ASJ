@@ -9,12 +9,7 @@
     <!-- Font Gabungan: Poppins, Lato, dan Roboto -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Lato:wght@400;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <meta name="color-scheme" content="light">
     <style>
-html {
-  color-scheme: light;
-}
-
 /* 1. THE SETUP */
 * {
   box-sizing: border-box;
@@ -26,89 +21,14 @@ p {
 }
 
 body {
-  background-color: #0b1f17;
-  color: #2d3748;
+  background-color: #e2e8f0; /* Diperbarui sesuai tema baru */
+  display: grid;
+  gap: 20px;
+  grid-template-columns: 1fr;
   margin: 0;
-  height: 100vh;
-  overflow: hidden;
-}
-
-.deck-viewport {
-  position: fixed;
-  inset: 0;
-  background: #0b1f17;
-  overflow: hidden;
-}
-
-.deck-scaler {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 1280px;
-  height: 720px;
-  overflow: hidden;
-  border-radius: 12px;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
-}
-
-.deck-track {
-  display: flex;
-  height: 100%;
-  transition: transform 0.65s cubic-bezier(.65,.05,.36,1);
-  will-change: transform;
-}
-
-.deck-track > .slide-container {
-  flex: 0 0 1280px;
-}
-
-.deck-arrow {
-  position: fixed;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  background: rgba(8,28,21,0.55);
-  color: #ffffff;
-  border: 2px solid rgba(255,255,255,0.25);
-  font-size: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  z-index: 50;
-  transition: background 0.2s, transform 0.2s;
-  backdrop-filter: blur(6px);
-}
-
-.deck-arrow:hover:not(:disabled) {
-  background: rgba(45,106,79,0.9);
-  transform: translateY(-50%) scale(1.08);
-}
-
-.deck-arrow:disabled {
-  opacity: 0.25;
-  cursor: default;
-}
-
-.deck-arrow-left { left: 28px; }
-.deck-arrow-right { right: 28px; }
-
-.deck-counter {
-  position: fixed;
-  bottom: 22px;
-  left: 50%;
-  transform: translateX(-50%);
-  color: #ffffff;
-  font-family: 'Lato', sans-serif;
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: 1px;
-  background: rgba(8,28,21,0.5);
-  padding: 6px 18px;
-  border-radius: 20px;
-  z-index: 50;
+  min-height: 100vh;
+  padding: 20px 0;
+  place-items: center;
 }
 
 /* 1.1 BACKGROUND STYLING (BASE SLIDES 2-11) */
@@ -469,7 +389,6 @@ body {
 }
 
 .highlight-numbers-layout .number {
-  color: #1b4332;
   background: -webkit-linear-gradient(#081c15, #2d6a4f);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -600,10 +519,6 @@ ul.styled-ul li::before {
     </style>
 </head>
 <body>
-
-<div class="deck-viewport">
-  <div class="deck-scaler">
-    <div class="deck-track" id="deckTrack">
 
 <!-- KONTEN SLIDE COVER -->
 <div class="slide-container cover-slide" id="slide1">
@@ -1635,7 +1550,7 @@ ul.styled-ul li::before {
 </div>
 
 <div class="slide-container" id="galeri-9">
-    <h2 class="slide-title">Dokumentasi: Penilaian Rehabilitasi DAS</h2>
+    <h2 class="slide-title">Dokumentasi: Penilaian Rehab DAS</h2>
     <div class="content-area">
         <div style="display: grid; grid-template-columns: repeat(5, 1fr); grid-template-rows: repeat(2, 210px); gap: 16px; align-content: start; width: 100%; margin-top: -15px;">
             <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
@@ -1691,50 +1606,6 @@ ul.styled-ul li::before {
         <div class="footer-item"><i class="fa-solid fa-envelope-open-text"></i> <span>adhyastasylvajaya@gmail.com</span></div>
     </div>
 </div>
-
-    </div>
-  </div>
-  <button class="deck-arrow deck-arrow-left" id="deckPrev" aria-label="Slide sebelumnya"><i class="fa-solid fa-chevron-left"></i></button>
-  <button class="deck-arrow deck-arrow-right" id="deckNext" aria-label="Slide berikutnya"><i class="fa-solid fa-chevron-right"></i></button>
-  <div class="deck-counter" id="deckCounter">1 / 1</div>
-</div>
-
-<script>
-(function(){
-  var track = document.getElementById('deckTrack');
-  var scaler = document.querySelector('.deck-scaler');
-  var slides = Array.prototype.slice.call(track.children).filter(function(el){ return el.classList.contains('slide-container'); });
-  var total = slides.length;
-  var idx = 0;
-
-  function updateScale(){
-    var s = Math.min(window.innerWidth / 1280, window.innerHeight / 720);
-    scaler.style.transform = 'translate(-50%, -50%) scale(' + s + ')';
-  }
-
-  function update(){
-    track.style.transform = 'translateX(-' + (idx * 1280) + 'px)';
-    document.getElementById('deckPrev').disabled = idx === 0;
-    document.getElementById('deckNext').disabled = idx === total - 1;
-    document.getElementById('deckCounter').textContent = (idx + 1) + ' / ' + total;
-  }
-
-  document.getElementById('deckPrev').addEventListener('click', function(){
-    if (idx > 0) { idx--; update(); }
-  });
-  document.getElementById('deckNext').addEventListener('click', function(){
-    if (idx < total - 1) { idx++; update(); }
-  });
-  window.addEventListener('keydown', function(e){
-    if (e.key === 'ArrowRight') { if (idx < total - 1) { idx++; update(); } }
-    if (e.key === 'ArrowLeft') { if (idx > 0) { idx--; update(); } }
-  });
-  window.addEventListener('resize', updateScale);
-
-  updateScale();
-  update();
-})();
-</script>
 
 </body>
 </html>
