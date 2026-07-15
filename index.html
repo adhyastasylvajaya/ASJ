@@ -9,7 +9,12 @@
     <!-- Font Gabungan: Poppins, Lato, dan Roboto -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Lato:wght@400;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <meta name="color-scheme" content="light">
     <style>
+html {
+  color-scheme: light;
+}
+
 /* 1. THE SETUP */
 * {
   box-sizing: border-box;
@@ -21,14 +26,89 @@ p {
 }
 
 body {
-  background-color: #e2e8f0; /* Diperbarui sesuai tema baru */
-  display: grid;
-  gap: 20px;
-  grid-template-columns: 1fr;
+  background-color: #0b1f17;
+  color: #2d3748;
   margin: 0;
-  min-height: 100vh;
-  padding: 20px 0;
-  place-items: center;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.deck-viewport {
+  position: fixed;
+  inset: 0;
+  background: #0b1f17;
+  overflow: hidden;
+}
+
+.deck-scaler {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 1280px;
+  height: 720px;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+}
+
+.deck-track {
+  display: flex;
+  height: 100%;
+  transition: transform 0.65s cubic-bezier(.65,.05,.36,1);
+  will-change: transform;
+}
+
+.deck-track > .slide-container {
+  flex: 0 0 1280px;
+}
+
+.deck-arrow {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(8,28,21,0.55);
+  color: #ffffff;
+  border: 2px solid rgba(255,255,255,0.25);
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 50;
+  transition: background 0.2s, transform 0.2s;
+  backdrop-filter: blur(6px);
+}
+
+.deck-arrow:hover:not(:disabled) {
+  background: rgba(45,106,79,0.9);
+  transform: translateY(-50%) scale(1.08);
+}
+
+.deck-arrow:disabled {
+  opacity: 0.25;
+  cursor: default;
+}
+
+.deck-arrow-left { left: 28px; }
+.deck-arrow-right { right: 28px; }
+
+.deck-counter {
+  position: fixed;
+  bottom: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #ffffff;
+  font-family: 'Lato', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  background: rgba(8,28,21,0.5);
+  padding: 6px 18px;
+  border-radius: 20px;
+  z-index: 50;
 }
 
 /* 1.1 BACKGROUND STYLING (BASE SLIDES 2-11) */
@@ -389,6 +469,7 @@ body {
 }
 
 .highlight-numbers-layout .number {
+  color: #1b4332;
   background: -webkit-linear-gradient(#081c15, #2d6a4f);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -520,6 +601,10 @@ ul.styled-ul li::before {
 </head>
 <body>
 
+<div class="deck-viewport">
+  <div class="deck-scaler">
+    <div class="deck-track" id="deckTrack">
+
 <!-- KONTEN SLIDE COVER -->
 <div class="slide-container cover-slide" id="slide1">
     <div class="content-overlay">
@@ -528,7 +613,7 @@ ul.styled-ul li::before {
             <i class="fa-solid fa-leaf"></i> Company Profile
         </div>
         
-        <h1>CV. ADHYASTA SYLVA JAYA</h1>
+        <h1>CV ADHYASTA SYLVA JAYA</h1>
         
         <p>
             <strong>Profesional, Terpercaya, Berkomitmen</strong>.
@@ -804,11 +889,12 @@ ul.styled-ul li::before {
             </div>
             <div>
                 <h3>Kategori Pengalaman Kami</h3>
-                <p>Kami telah dipercaya oleh berbagai perusahaan tambang terkemuka dan institusi pemerintah (seperti PT Indominco Mandiri, PT Kideco Jaya Agung, BPDASHL, dan Pupuk Kaltim). Pengalaman kami dikelompokkan menjadi 3 lini utama:</p>
+                <p>Kami telah dipercaya oleh berbagai perusahaan tambang terkemuka dan institusi pemerintah (seperti PT Indominco Mandiri, PT Kideco Jaya Agung, BPDASHL, dan Pupuk Kaltim). Pengalaman kami dikelompokkan menjadi 4 lini utama:</p>
                 <ul class="styled-ul" style="margin-top:20px;">
                     <li><strong>Pengawasan Rehabilitasi DAS</strong></li>
-                    <li><strong>Pengadaan, Penanaman & Pemeliharaan RHL</strong></li>
+                    <li><strong>Penanaman, Pemeliharaan RHL dan Rehabilitasi DAS</strong></li>
                     <li><strong>Reklamasi Tambang & Mangrove</strong></li>
+                    <li><strong>Pengadan bibit, Serah Terima Rehabilitasi DAS dan Geotagging</strong></li>
                 </ul>
             </div>
         </div>
@@ -840,7 +926,7 @@ ul.styled-ul li::before {
                     <tr>
                         <td>1</td>
                         <td>Pengawasan Rehabilitasi DAS</td>
-                        <td>PT. Indominco Mandiri</td>
+                        <td>PT Indominco Mandiri</td>
                         <td>Taman Nasional Kutai</td>
                         <td>2019</td>
                         <td><span class="badge selesai">Selesai</span></td>
@@ -848,7 +934,7 @@ ul.styled-ul li::before {
                     <tr>
                         <td>2</td>
                         <td>Pengawasan Rehabilitasi DAS</td>
-                        <td>PT. Indominco Mandiri</td>
+                        <td>PT Indominco Mandiri</td>
                         <td>Taman Nasional Kutai</td>
                         <td>2020</td>
                         <td><span class="badge selesai">Selesai</span></td>
@@ -856,7 +942,7 @@ ul.styled-ul li::before {
                     <tr>
                         <td>3</td>
                         <td>Pengawasan Rehabilitasi DAS</td>
-                        <td>PT. Indominco Mandiri</td>
+                        <td>PT Indominco Mandiri</td>
                         <td>Taman Nasional Kutai</td>
                         <td>2021</td>
                         <td><span class="badge selesai">Selesai</span></td>
@@ -864,7 +950,7 @@ ul.styled-ul li::before {
                     <tr>
                         <td>4</td>
                         <td>Pengawasan Rehabilitasi DAS</td>
-                        <td>PT. Indominco Mandiri</td>
+                        <td>PT Indominco Mandiri</td>
                         <td>Taman Nasional Kutai</td>
                         <td>2022</td>
                         <td><span class="badge selesai">Selesai</span></td>
@@ -872,7 +958,7 @@ ul.styled-ul li::before {
                     <tr>
                         <td>5</td>
                         <td>Pengawasan Rehabilitasi DAS</td>
-                        <td>PT. Indominco Mandiri</td>
+                        <td>PT Indominco Mandiri</td>
                         <td>Taman Nasional Kutai</td>
                         <td>2023</td>
                         <td><span class="badge selesai">Selesai</span></td>
@@ -880,7 +966,7 @@ ul.styled-ul li::before {
                     <tr>
                         <td>6</td>
                         <td>Pengawasan Rehabilitasi DAS</td>
-                        <td>PT. Indominco Mandiri</td>
+                        <td>PT Indominco Mandiri</td>
                         <td>Taman Nasional Kutai</td>
                         <td>2024</td>
                         <td><span class="badge selesai">Selesai</span></td>
@@ -888,7 +974,7 @@ ul.styled-ul li::before {
                     <tr>
                         <td>7</td>
                         <td>Pengawasan Rehabilitasi DAS</td>
-                        <td>PT. Indominco Mandiri</td>
+                        <td>PT Indominco Mandiri</td>
                         <td>Taman Nasional Kutai</td>
                         <td>2026</td>
                         <td><span class="badge berjalan">Sedang Berjalan</span></td>
@@ -906,7 +992,7 @@ ul.styled-ul li::before {
 </div>
 
 <div class="slide-container" id="slide9">
-    <h2 class="slide-title">Portofolio: Pengadaan, Penanaman & Pemeliharaan</h2>
+    <h2 class="slide-title" style="font-size: 35px; width: 1181px; height: 105px">Portofolio: Penanaman, Pemeliharaan RHL dan Rehabilitasi DAS</h2>
     <div class="content-area">
         <div class="table-layout glass-panel compact-table-wrapper">
             <table class="compact-table">
@@ -923,14 +1009,22 @@ ul.styled-ul li::before {
                 <tbody>
                     <tr>
                         <td>1</td>
-                        <td>Penanaman & Pemeliharaan RHL Rawan Bencana Gn. Hantu (342 Ha)</td>
+                        <td>Penanaman (P0) RHL Rawan Bencana di Hutan Lindung Gunung Hantu III, KPHP Berau Barat (Blok I dan II) Seluas 342 Ha</td>
                         <td>BPDASHL Mahakam Berau</td>
                         <td>KPHP Berau Barat</td>
-                        <td>2019-2021</td>
+                        <td>2019</td>
                         <td><span class="badge selesai">Selesai</span></td>
                     </tr>
                     <tr>
                         <td>2</td>
+                        <td>Pemeliharaan Tahun Pertama (P1) RHL Rawan Bencana di Hutan Lindung Gunung Hantu III, KPHP Berau Barat (Blok I dan II) Seluas 342 Ha</td>
+                        <td>BPDASHL Mahakam Berau</td>
+                        <td>KPHP Berau Barat</td>
+                        <td>2020</td>
+                        <td><span class="badge selesai">Selesai</span></td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
                         <td>Penanaman Rehabilitasi DAS TN Kutai Blok XIV (225 Ha)</td>
                         <td>PT Kideco Jaya Agung</td>
                         <td>Taman Nasional Kutai</td>
@@ -938,7 +1032,15 @@ ul.styled-ul li::before {
                         <td><span class="badge selesai">Selesai</span></td>
                     </tr>
                     <tr>
-                        <td>3</td>
+                        <td>4</td>
+                        <td>Pemeliharaan Tahun Ke Dua (P2) RHL Rawan Bencana di Hutan Lindung Gunung Hantu III, KPHP Berau Barat (Blok I dan II) Seluas 342 Ha</td>
+                        <td>BPDASHL Mahakam Berau</td>
+                        <td>KPHP Berau Barat</td>
+                        <td>2021</td>
+                        <td><span class="badge selesai">Selesai</span></td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
                         <td>Penanaman Rehabilitasi DAS TN Kutai Blok XXV (294 Ha)</td>
                         <td>PT Kideco Jaya Agung</td>
                         <td>Taman Nasional Kutai</td>
@@ -946,7 +1048,7 @@ ul.styled-ul li::before {
                         <td><span class="badge selesai">Selesai</span></td>
                     </tr>
                     <tr>
-                        <td>4</td>
+                        <td>6</td>
                         <td>Penanaman Rehabilitasi DAS TN Kutai Blok XXXVII (281 Ha)</td>
                         <td>PT Kideco Jaya Agung</td>
                         <td>Taman Nasional Kutai</td>
@@ -954,7 +1056,7 @@ ul.styled-ul li::before {
                         <td><span class="badge selesai">Selesai</span></td>
                     </tr>
                     <tr>
-                        <td>5</td>
+                        <td>7</td>
                         <td>Pekerjaan Relokasi Kegiatan Rehabilitasi DAS (1.016 Ha)</td>
                         <td>PT Gunung Bara Utama</td>
                         <td>KPHP Belayan & Damai</td>
@@ -962,7 +1064,7 @@ ul.styled-ul li::before {
                         <td><span class="badge selesai">Selesai</span></td>
                     </tr>
                     <tr>
-                        <td>6</td>
+                        <td>8</td>
                         <td>Pekerjaan Penyusunan Rencana Teknis (Rantek) Penanaman (1.016 Ha)</td>
                         <td>PT Gunung Bara Utama</td>
                         <td>KPHP Belayan & Damai</td>
@@ -970,35 +1072,11 @@ ul.styled-ul li::before {
                         <td><span class="badge selesai">Selesai</span></td>
                     </tr>
                     <tr>
-                        <td>7</td>
+                        <td>9</td>
                         <td>Pekerjaan Penanaman (P0) Rehabilitasi DAS (1.016 Ha)</td>
                         <td>PT Gunung Bara Utama</td>
                         <td>KPHP Belayan & Damai</td>
                         <td>2025</td>
-                        <td><span class="badge berjalan">Sedang Berjalan</span></td>
-                    </tr>
-                    <tr>
-                        <td>8</td>
-                        <td>Pengadaan Bibit Tanaman Penghijauan Lingkungan</td>
-                        <td>Dinas Kehutanan Prov. Kaltim</td>
-                        <td>Loa Janan Ilir</td>
-                        <td>2025</td>
-                        <td><span class="badge selesai">Selesai</span></td>
-                    </tr>
-                    <tr>
-                        <td>9</td>
-                        <td>Pengadaan barang berupa bibit tanaman untuk kebutuhan PT. Swakarsa Sinarsentosa</td>
-                        <td>PT Swakarsa Sinarsentosa</td>
-                        <td>Muara Wahau</td>
-                        <td>2026</td>
-                        <td><span class="badge selesai">Selesai</span></td>
-                    </tr>
-                    <tr>
-                        <td>10</td>
-                        <td>Pekerjaan Geotagging 100% Tanaman Rehabilitasi DAS (3.999 Ha)</td>
-                        <td>PT Indominco Mandiri</td>
-                        <td>Taman Nasional Kutai</td>
-                        <td>2026</td>
                         <td><span class="badge berjalan">Sedang Berjalan</span></td>
                     </tr>
                 </tbody>
@@ -1032,7 +1110,7 @@ ul.styled-ul li::before {
                     <tr>
                         <td>1</td>
                         <td>Pembuatan Petak Ukur (PU) Pada Area Reklamasi</td>
-                        <td>PT. Indominco Mandiri</td>
+                        <td>PT Indominco Mandiri</td>
                         <td>Area Reklamasi IMM</td>
                         <td>2022</td>
                         <td><span class="badge selesai">Selesai</span></td>
@@ -1040,7 +1118,7 @@ ul.styled-ul li::before {
                     <tr>
                         <td>2</td>
                         <td>Penanaman Sisipan, Pemeliharaan dan Penilaian Keberhasilan Reklamasi Pasca Tambang (500 Ha)</td>
-                        <td>PT. Indominco Mandiri</td>
+                        <td>PT Indominco Mandiri</td>
                         <td>Area Reklamasi IMM</td>
                         <td>2023</td>
                         <td><span class="badge selesai">Selesai</span></td>
@@ -1055,6 +1133,14 @@ ul.styled-ul li::before {
                     </tr>
                     <tr>
                         <td>4</td>
+                        <td>Pengadaan Jasa Pekerjaan Penanaman Mangrove Intensif (10 Ha)</td>
+                        <td>PT Pupuk Kaltim</td>
+                        <td>Taman Nasional Kutai</td>
+                        <td>2025</td>
+                        <td><span class="badge selesai">Selesai</span></td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
                         <td>Pemeliharaan (P1) Reklamasi Hutan Area Bekas Tambang (50 Ha)</td>
                         <td>PT Kedap Sayaaq</td>
                         <td>Area Reklamasi PT KS</td>
@@ -1062,28 +1148,72 @@ ul.styled-ul li::before {
                         <td><span class="badge selesai">Selesai</span></td>
                     </tr>
                     <tr>
-                        <td>5</td>
-                        <td>Pengadaan Jasa Pekerjaan Penanaman Mangrove Intensif (10 Ha)</td>
-                        <td>PT. Pupuk Kaltim</td>
-                        <td>Taman Nasional Kutai</td>
-                        <td>2024</td>
-                        <td><span class="badge selesai">Selesai</span></td>
-                    </tr>
-                    <tr>
                         <td>6</td>
                         <td>Pengadaan Jasa Pemulihan Ekosistem Mangrove Kerjasama TN Kutai (60 Ha)</td>
-                        <td>PT. Pupuk Kaltim</td>
+                        <td>PT Pupuk Kaltim</td>
                         <td>Taman Nasional Kutai</td>
                         <td>2025</td>
                         <td><span class="badge berjalan">Sedang Berjalan</span></td>
                     </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <div class="slide-footer">
+        <div class="footer-item"><i class="fa-solid fa-map-location-dot"></i> <span>Jl. Padat Karya Gg. Sa'aludin RT.48 Blok A No. 01, Loa Bakung, Samarinda</span></div>
+        <div class="footer-item"><i class="fa-solid fa-phone-volume"></i> <span>0821-2525-3335</span></div>
+        <div class="footer-item"><i class="fa-solid fa-envelope-open-text"></i> <span>adhyastasylvajaya@gmail.com</span></div>
+    </div>
+</div>
+
+<div class="slide-container" id="slide9b">
+    <h2 class="slide-title" style="font-size: 35px; width: 1194px; height: 104px">Portofolio: Pengadaan Bibit, Serah Terima Rehab DAS & Geotagging</h2>
+    <div class="content-area">
+        <div class="table-layout glass-panel compact-table-wrapper">
+            <table class="compact-table">
+                <thead>
                     <tr>
-                        <td>7</td>
+                        <th style="width:5%;">No</th>
+                        <th style="width:35%;">Nama Pekerjaan</th>
+                        <th style="width:20%;">Pemberi Kerja</th>
+                        <th style="width:20%;">Lokasi</th>
+                        <th style="width:10%;">Tahun</th>
+                        <th style="width:10%;">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
                         <td>Pelaksana EO Serah Terima Rehabilitasi DAS</td>
                         <td>PT Kideco Jaya Agung</td>
                         <td>Taman Nasional Kutai</td>
                         <td>2024</td>
                         <td><span class="badge selesai">Selesai</span></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Pengadaan Bibit Tanaman Penghijauan Lingkungan</td>
+                        <td>Dinas Kehutanan Prov. Kaltim</td>
+                        <td>Loa Janan Ilir</td>
+                        <td>2025</td>
+                        <td><span class="badge selesai">Selesai</span></td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Pengadaan barang berupa bibit tanaman untuk kebutuhan PT Swakarsa Sinarsentosa</td>
+                        <td>PT Swakarsa Sinarsentosa</td>
+                        <td>Muara Wahau</td>
+                        <td>2026</td>
+                        <td><span class="badge selesai">Selesai</span></td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Pekerjaan Geotagging Tanaman 100% Rehabilitasi DAS (3.999 Ha)</td>
+                        <td>PT Indominco Mandiri</td>
+                        <td>Taman Nasional Kutai</td>
+                        <td>2026</td>
+                        <td><span class="badge berjalan">Sedang Berjalan</span></td>
                     </tr>
                 </tbody>
             </table>
@@ -1104,7 +1234,7 @@ ul.styled-ul li::before {
             <!-- Panel Kiri: Link & QR Code -->
             <div class="glass-panel" style="display: flex; flex-direction: column; justify-content: center; text-align: center; padding: 25px 30px;">
                 <div style="font-size: 40px; color: #2d6a4f; margin-bottom: 15px;"><i class="fa-solid fa-folder-open"></i></div>
-                <h3 style="font-size: 22px; margin-bottom: 10px; text-align: center;">Dokumen Legalitas <br> CV. Adhyasta Sylva Jaya</h3>
+                <h3 style="font-size: 22px; margin-bottom: 10px; text-align: center;">Dokumen Legalitas <br> CV Adhyasta Sylva Jaya</h3>
                 <p style="text-align: center; font-size: 15px; margin-bottom: 10px;">Seluruh dokumen legalitas perusahaan dapat diakses secara digital melalui tautan berikut:</p>
                 
                 <a href="https://bit.ly/Data_ASJ" target="_blank" style="display: inline-block; background: linear-gradient(135deg, #1b4332, #2d6a4f); color: white; padding: 10px 20px; border-radius: 30px; font-weight: 600; text-decoration: none; margin: 5px auto 10px auto; transition: transform 0.3s, box-shadow 0.3s; box-shadow: 0 4px 15px rgba(45, 106, 79, 0.4); font-size: 15px;">
@@ -1152,19 +1282,41 @@ ul.styled-ul li::before {
     </div>
 </div>
 
-<!-- SLIDE 16: DOKUMENTASI PENILAIAN REKLAMASI -->
-<div class="slide-container" id="slide16">
-    <h2 class="slide-title">Dokumentasi Kegiatan Penilaian Reklamasi</h2>
-    <div class="content-area" style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%;">
-        
-        <!-- Gambar dengan URL alternatif yang lebih stabil -->
-        <div style="width: 100%; display: flex; justify-content: center; align-items: center;">
-            <img src="https://lh3.googleusercontent.com/d/1z3gYdWScubJytzqefE4kOLN1hR4IEAfs" 
-                 alt="Dokumentasi Kegiatan Penilaian Reklamasi" 
-                 style="width: 100%; max-height: 65vh; height: auto; object-fit: contain; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);"
-                 onerror="this.onerror=null; this.src='https://placehold.co/800x400?text=Gambar+Gagal+Dimuat';">
+<div class="slide-container" id="galeri-1">
+    <h2 class="slide-title">Dokumentasi: Nursery</h2>
+    <div class="content-area">
+        <div style="display: grid; grid-template-columns: repeat(5, 1fr); grid-template-rows: repeat(2, 210px); gap: 16px; align-content: start; width: 100%; margin-top: -15px;">
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/1wblWocRYIuFnFUp0YDMzS_K8SA0AfoCu" alt="Dokumentasi Nursery" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/1rnW0_0weJcv9NO7TJ8xQoruAL6uRUVF7" alt="Dokumentasi Nursery" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/1KedHnjGE7T4sRxrbmaacfiZG1rg_BKDi" alt="Dokumentasi Nursery" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/1NEfUDUOqmFSG33iXvyHUoF7TdgPfEMkn" alt="Dokumentasi Nursery" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/1haQNjIIfUAKi75JrsFG-8TZENzNDWGza" alt="Dokumentasi Nursery" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/1wZ9oRadjsUne9TUQzfWLoSNI-oWTD8Sq" alt="Dokumentasi Nursery" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/1zT9-K97WuzwBj8mdoaU2qMP1NC1hudg1" alt="Dokumentasi Nursery" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/1hcZrkIhqYY1jtZ0O48tts8rclbTaTrWP" alt="Dokumentasi Nursery" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/1soI-k82TysxfdHu-0z00YjpTIzM3DnOx" alt="Dokumentasi Nursery" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/1LfwjGat1SQt5Ge5NuVXdjLrCovNvyoPo" alt="Dokumentasi Nursery" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
         </div>
-
     </div>
     
     <div class="slide-footer">
@@ -1174,18 +1326,41 @@ ul.styled-ul li::before {
     </div>
 </div>
 
-<div class="slide-container" id="slide13">
-    <h2 class="slide-title">Dokumentasi Kegiatan Nursery</h2>
-    <div class="content-area" style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%;">
-        
-        <!-- Gambar dengan URL alternatif yang lebih stabil -->
-        <div style="width: 100%; display: flex; justify-content: center; align-items: center;">
-            <img src="https://lh3.googleusercontent.com/d/19TtIGylqKZ-j_rKIuJYf_qMnPeOLodkr" 
-                 alt="Dokumentasi Kegiatan Penilaian Reklamasi" 
-                 style="width: 100%; max-height: 65vh; height: auto; object-fit: contain; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);"
-                 onerror="this.onerror=null; this.src='https://placehold.co/800x400?text=Gambar+Gagal+Dimuat';">
+<div class="slide-container" id="galeri-2">
+    <h2 class="slide-title">Dokumentasi: Rehabilitasi DAS (1/2)</h2>
+    <div class="content-area">
+        <div style="display: grid; grid-template-columns: repeat(5, 1fr); grid-template-rows: repeat(2, 210px); gap: 16px; align-content: start; width: 100%; margin-top: -15px;">
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/1zK7ky29BLn1juGjHETvJvOVDdAP0rXUf" alt="Dokumentasi Rehabilitasi DAS" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/13I99TlKTRiupW36aXihyHzakAEEkgAW7" alt="Dokumentasi Rehabilitasi DAS" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/1JPUvKd-YVmgo_Wj2ZTGUTwTfM7p6uBIK" alt="Dokumentasi Rehabilitasi DAS" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/1_5mtCFfd3QcEBs_LODiihX-RIc6v1TFP" alt="Dokumentasi Rehabilitasi DAS" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/1dvsk7ckon6e6UskQy9pXYHIH6U1wyB2d" alt="Dokumentasi Rehabilitasi DAS" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/15n7CFjs-W7f-AazzZui1DgTm9ODgunYk" alt="Dokumentasi Rehabilitasi DAS" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/1ufIcCavPxMyaVfmykbEo8crJKO-SSYqf" alt="Dokumentasi Rehabilitasi DAS" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/11gvf7ZXQgjUv4iCtITwAo3xYA2Ec9nC-" alt="Dokumentasi Rehabilitasi DAS" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/1fcYTdXWdVBxwi1ccYsPpplLUb5OgUDSB" alt="Dokumentasi Rehabilitasi DAS" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/1pfPvlsReCoKPiMXZ8UX8LCGDsI_1hzYK" alt="Dokumentasi Rehabilitasi DAS" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
         </div>
-
     </div>
     
     <div class="slide-footer">
@@ -1195,18 +1370,41 @@ ul.styled-ul li::before {
     </div>
 </div>
 
-<div class="slide-container" id="slide14">
-    <h2 class="slide-title">Dokumentasi Kegiatan Rehabilitasi Mangrove</h2>
-    <div class="content-area" style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%;">
-        
-        <!-- Gambar dengan URL alternatif yang lebih stabil -->
-        <div style="width: 100%; display: flex; justify-content: center; align-items: center;">
-            <img src="https://lh3.googleusercontent.com/d/1Fz8KMsalGcbBe542U4RL_6sdc-PWnXcG" 
-                 alt="Dokumentasi Kegiatan Penilaian Reklamasi" 
-                 style="width: 100%; max-height: 65vh; height: auto; object-fit: contain; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);"
-                 onerror="this.onerror=null; this.src='https://placehold.co/800x400?text=Gambar+Gagal+Dimuat';">
+<div class="slide-container" id="galeri-3">
+    <h2 class="slide-title">Dokumentasi: Rehabilitasi DAS (2/2)</h2>
+    <div class="content-area">
+        <div style="display: grid; grid-template-columns: repeat(5, 1fr); grid-template-rows: repeat(2, 210px); gap: 16px; align-content: start; width: 100%; margin-top: -15px;">
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/1XZLcPHXV7NQaGgOqx3LdDHAYLPjUIwvm" alt="Dokumentasi Rehabilitasi DAS" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/1tDQcO13CMztWoihZ2CthzmtC-avYqiyu" alt="Dokumentasi Rehabilitasi DAS" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/1Kwc9zdFjkqjXJjYaxyYdAjRsBemoIVRx" alt="Dokumentasi Rehabilitasi DAS" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/1Jc8T_Ar8JbV_LhFMBM9gyjowWzImNYqA" alt="Dokumentasi Rehabilitasi DAS" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/1KAd6EdnjXzRO02iyRBP2RxH7tBddP22L" alt="Dokumentasi Rehabilitasi DAS" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/1f38qxfcGu9RVvg2TH3faPMvO4ENtSg9N" alt="Dokumentasi Rehabilitasi DAS" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/1uVbFRgb3Pag1mIL1XUXyM-LWK9zE-2R7" alt="Dokumentasi Rehabilitasi DAS" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/1ybq0r1IZI2XoGcDHFe8xbQ14ZAWG-417" alt="Dokumentasi Rehabilitasi DAS" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/1U86BssPaV1KuUp-E4PaOjl8QxAeu5w0p" alt="Dokumentasi Rehabilitasi DAS" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/107uh0OYhJb_yppKoOKhDkoT5eEReC4Dc" alt="Dokumentasi Rehabilitasi DAS" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
         </div>
-
     </div>
     
     <div class="slide-footer">
@@ -1216,18 +1414,41 @@ ul.styled-ul li::before {
     </div>
 </div>
 
-<div class="slide-container" id="slide15">
-    <h2 class="slide-title">Dokumentasi Kegiatan Rehabilitasi DAS</h2>
-    <div class="content-area" style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%;">
-        
-        <!-- Gambar dengan URL alternatif yang lebih stabil -->
-        <div style="width: 100%; display: flex; justify-content: center; align-items: center;">
-            <img src="https://lh3.googleusercontent.com/d/187sflb33jIcSLub5qjRLNESQ4MhvNPVn" 
-                 alt="Dokumentasi Kegiatan Penilaian Reklamasi" 
-                 style="width: 100%; max-height: 65vh; height: auto; object-fit: contain; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);"
-                 onerror="this.onerror=null; this.src='https://placehold.co/800x400?text=Gambar+Gagal+Dimuat';">
+<div class="slide-container" id="galeri-4">
+    <h2 class="slide-title">Dokumentasi: Reklamasi</h2>
+    <div class="content-area">
+        <div style="display: grid; grid-template-columns: repeat(5, 1fr); grid-template-rows: repeat(2, 210px); gap: 16px; align-content: start; width: 100%; margin-top: -15px;">
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/1K0YAv0d_akQcw1hdv0Fa83hGXkpcMN_L" alt="Dokumentasi Reklamasi" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/1pMm-e-VHBYXKj8E3_l6-uaWjJ6_P86DM" alt="Dokumentasi Reklamasi" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/1qa_Q6ObGu1XZ9v4C1ICWyB5Gb5xeYtwh" alt="Dokumentasi Reklamasi" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/1iUXXbaF48g7s6DHY3R3GH1oVtNjEtb_q" alt="Dokumentasi Reklamasi" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/1wsu0tmNI3NqmePl1xnZ0ZFR4DKMl9hZE" alt="Dokumentasi Reklamasi" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/1SH2Ge1r_tLNlsoFGnHARFlfjkMuvvFyc" alt="Dokumentasi Reklamasi" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/118TL8A83OSTL1dLyevHcI-Ed7X0b2aMy" alt="Dokumentasi Reklamasi" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/1OJQR3JwUGmxNmHplwX4tP0wvmcv9pR7n" alt="Dokumentasi Reklamasi" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/13TbYS52Mqr9rWXCK4bHwCuNCwgi5N7vK" alt="Dokumentasi Reklamasi" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/1EHzUmIgSOe8yR5Z3L3pvdpHSJBUykqqN" alt="Dokumentasi Reklamasi" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
         </div>
-
     </div>
     
     <div class="slide-footer">
@@ -1237,19 +1458,217 @@ ul.styled-ul li::before {
     </div>
 </div>
 
-
-<div class="slide-container" id="slide15">
-    <h2 class="slide-title">Dokumentasi Kegiatan Rehabilitasi DAS</h2>
-    <div class="content-area" style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%;">
-        
-        <!-- Gambar dengan URL alternatif yang lebih stabil -->
-        <div style="width: 100%; display: flex; justify-content: center; align-items: center;">
-            <img src="https://lh3.googleusercontent.com/d/1AvAHQriaSoOlBAJwj4S5Wr6Liq6y1TAh" 
-                 alt="Dokumentasi Kegiatan Penilaian Reklamasi" 
-                 style="width: 100%; max-height: 65vh; height: auto; object-fit: contain; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);"
-                 onerror="this.onerror=null; this.src='https://placehold.co/800x400?text=Gambar+Gagal+Dimuat';">
+<div class="slide-container" id="galeri-5">
+    <h2 class="slide-title">Dokumentasi: Mangrove</h2>
+    <div class="content-area">
+        <div style="display: grid; grid-template-columns: repeat(5, 1fr); grid-template-rows: repeat(2, 210px); gap: 16px; align-content: start; width: 100%; margin-top: -15px;">
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/1v1vgSpXRVQ5Zhjc5ZNrrky6pFTQa_-ny" alt="Dokumentasi Mangrove" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/1_ydw7nz9T384rqJ6x93FBlYLmbsspz-O" alt="Dokumentasi Mangrove" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/1-tN-NaxDVugyx3OgOXhaPzEkfqnCl-Ii" alt="Dokumentasi Mangrove" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/1qskTM_B8449uPiIhfZFmQ-DBPdxshR3J" alt="Dokumentasi Mangrove" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/15emXOXee2ll7QkwIoaV_SHkbi_KrMa1j" alt="Dokumentasi Mangrove" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/1GjKkJzaSJJ9GEUK_75eHUDwNbAyMMdO3" alt="Dokumentasi Mangrove" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/1Q7v3Cz1xJEpemo_JdQBrKD8bVmIgfaS_" alt="Dokumentasi Mangrove" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/1c5w9WdLxGCKh3n4EEPKjT5Enuum3oGq1" alt="Dokumentasi Mangrove" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/1VYKHldOSXhD02CdJRxJaaPGqXx_Qyr9K" alt="Dokumentasi Mangrove" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/1SomcSXbD0kQ4ik-IGf05D9BSrqp9BKU-" alt="Dokumentasi Mangrove" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
         </div>
+    </div>
+    
+    <div class="slide-footer">
+        <div class="footer-item"><i class="fa-solid fa-map-location-dot"></i> <span>Jl. Padat Karya Gg. Sa'aludin RT.48 Blok A No. 01, Loa Bakung, Samarinda</span></div>
+        <div class="footer-item"><i class="fa-solid fa-phone-volume"></i> <span>0821-2525-3335</span></div>
+        <div class="footer-item"><i class="fa-solid fa-envelope-open-text"></i> <span>adhyastasylvajaya@gmail.com</span></div>
+    </div>
+</div>
 
+<div class="slide-container" id="galeri-6">
+    <h2 class="slide-title">Dokumentasi: Pengawasan & Geotagging</h2>
+    <div class="content-area">
+        <div style="display: grid; grid-template-columns: repeat(5, 1fr); grid-template-rows: repeat(2, 210px); gap: 16px; align-content: start; width: 100%; margin-top: -15px;">
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/1R-s4uFMBOtVaCZ1EOjK4vsH2Vd9nEFnn" alt="Dokumentasi Pengawasan & Geotagging" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/1f13BuxIZlun_ZnKdOD371ix-Za3k8Lw4" alt="Dokumentasi Pengawasan & Geotagging" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/1ScnTZRchMSFJXaIzRd9jjs8YuH-ECI__" alt="Dokumentasi Pengawasan & Geotagging" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/1ER7M_04Fi3YtF9mkPkyJPzy_mqyfJA0w" alt="Dokumentasi Pengawasan & Geotagging" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/1O7M8uauRk-PB9LCSNKVaxsN6U72zAUUM" alt="Dokumentasi Pengawasan & Geotagging" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/1yuBQOhQhFjLborbNtL7IqhwP4L89dtoz" alt="Dokumentasi Pengawasan & Geotagging" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/1MQTAOD3q8VwoOAHadUWmaYNsRnbyRR2J" alt="Dokumentasi Pengawasan & Geotagging" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/1OSf4LJ7Q1gpDm_iR8Ujo9nSFwaj8iKJA" alt="Dokumentasi Pengawasan & Geotagging" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/1U172YA9275cWCrXeQm2r0DSf5Uxpfd34" alt="Dokumentasi Pengawasan & Geotagging" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/13hM80ZobSk79cgWklfrct8YthVbJQ-vv" alt="Dokumentasi Pengawasan & Geotagging" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+        </div>
+    </div>
+    
+    <div class="slide-footer">
+        <div class="footer-item"><i class="fa-solid fa-map-location-dot"></i> <span>Jl. Padat Karya Gg. Sa'aludin RT.48 Blok A No. 01, Loa Bakung, Samarinda</span></div>
+        <div class="footer-item"><i class="fa-solid fa-phone-volume"></i> <span>0821-2525-3335</span></div>
+        <div class="footer-item"><i class="fa-solid fa-envelope-open-text"></i> <span>adhyastasylvajaya@gmail.com</span></div>
+    </div>
+</div>
+
+<div class="slide-container" id="galeri-7">
+    <h2 class="slide-title">Dokumentasi: Pengambilan PU Reklamasi</h2>
+    <div class="content-area">
+        <div style="display: grid; grid-template-columns: repeat(5, 1fr); grid-template-rows: repeat(2, 210px); gap: 16px; align-content: start; width: 100%; margin-top: -15px;">
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/122JZIGyP9f46G_RoOJe7aZtR4NaAnYY2" alt="Dokumentasi Pengambilan PU Reklamasi" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/1-4YWe-i0u4sImKqQhjSr-pFj28moXlVV" alt="Dokumentasi Pengambilan PU Reklamasi" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/1xZ4EEk6Yb6eAeymats_qDQy1ndlAVU0M" alt="Dokumentasi Pengambilan PU Reklamasi" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/1MvSZ93OwIdw9GkY_PX1c3pG-sWTNmGOz" alt="Dokumentasi Pengambilan PU Reklamasi" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/1YSpDOkzhK4RTgQr-7M2VMCWEqJTNFs_E" alt="Dokumentasi Pengambilan PU Reklamasi" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/1N6Tje2CGVUKB3zjOPDYVIdw9TxsRfBPh" alt="Dokumentasi Pengambilan PU Reklamasi" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/1WijyOZGPW5EmnZ5H3XXTXfZZXYN--2BQ" alt="Dokumentasi Pengambilan PU Reklamasi" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/1S6KysJWr2CGuk3FIxEs_3NwGjIVq9mya" alt="Dokumentasi Pengambilan PU Reklamasi" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/1W2NmROlAgDGF7p3JgwVP2ssJHJVFlI9L" alt="Dokumentasi Pengambilan PU Reklamasi" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/1RfLl1m-Lda2V3OWhV-s1obgj8CzbH-wP" alt="Dokumentasi Pengambilan PU Reklamasi" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+        </div>
+    </div>
+    
+    <div class="slide-footer">
+        <div class="footer-item"><i class="fa-solid fa-map-location-dot"></i> <span>Jl. Padat Karya Gg. Sa'aludin RT.48 Blok A No. 01, Loa Bakung, Samarinda</span></div>
+        <div class="footer-item"><i class="fa-solid fa-phone-volume"></i> <span>0821-2525-3335</span></div>
+        <div class="footer-item"><i class="fa-solid fa-envelope-open-text"></i> <span>adhyastasylvajaya@gmail.com</span></div>
+    </div>
+</div>
+
+<div class="slide-container" id="galeri-8">
+    <h2 class="slide-title">Dokumentasi: Penilaian Reklamasi</h2>
+    <div class="content-area">
+        <div style="display: grid; grid-template-columns: repeat(5, 1fr); grid-template-rows: repeat(2, 210px); gap: 16px; align-content: start; width: 100%; margin-top: -15px;">
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/178vD_1aMDv9G5i2-dsKnAICqYDA7b6Qg" alt="Dokumentasi Penilaian Reklamasi" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/1EO2Z5VcJPT-vzpFOz3A49RRivf8d7nSQ" alt="Dokumentasi Penilaian Reklamasi" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/1MhyzPUPTBt2jZYSKE7CtLmiubXb10yWx" alt="Dokumentasi Penilaian Reklamasi" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/1-hOnUme8dRwazBDQTLjZykLlsE_Iy8D3" alt="Dokumentasi Penilaian Reklamasi" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/1fuD8mKTGDcDZYVOHKPll4whEHYoAz544" alt="Dokumentasi Penilaian Reklamasi" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/1-kBBAkyyXUXHKJfnytMAA5iGALLTJH8K" alt="Dokumentasi Penilaian Reklamasi" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/1272GnehlEicmfv9hcpOxq31cwwSzBS7n" alt="Dokumentasi Penilaian Reklamasi" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/1SI_wmqIML6jrUh3YI2S8OsGzEmmKF11Q" alt="Dokumentasi Penilaian Reklamasi" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/1wt4Eizk44XlNRTC0A0gq97Cjb2P9bEBA" alt="Dokumentasi Penilaian Reklamasi" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/1aN8-qOjY6icnAoQrYPU7h2xLYfP3EYFg" alt="Dokumentasi Penilaian Reklamasi" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+        </div>
+    </div>
+    
+    <div class="slide-footer">
+        <div class="footer-item"><i class="fa-solid fa-map-location-dot"></i> <span>Jl. Padat Karya Gg. Sa'aludin RT.48 Blok A No. 01, Loa Bakung, Samarinda</span></div>
+        <div class="footer-item"><i class="fa-solid fa-phone-volume"></i> <span>0821-2525-3335</span></div>
+        <div class="footer-item"><i class="fa-solid fa-envelope-open-text"></i> <span>adhyastasylvajaya@gmail.com</span></div>
+    </div>
+</div>
+
+<div class="slide-container" id="galeri-9">
+    <h2 class="slide-title">Dokumentasi: Penilaian Rehabilitasi DAS</h2>
+    <div class="content-area">
+        <div style="display: grid; grid-template-columns: repeat(5, 1fr); grid-template-rows: repeat(2, 210px); gap: 16px; align-content: start; width: 100%; margin-top: -15px;">
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/1C4h-60NIrwUnNlwV4vfy_4oOpRaVyuyD" alt="Dokumentasi Penilaian Rehab DAS" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/1x6tCqzTekOnn2QTDf0iqHCyk3PFFUIoR" alt="Dokumentasi Penilaian Rehab DAS" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/19IEcOQLNaPYyjopQafCVi-D45MoK1jt7" alt="Dokumentasi Penilaian Rehab DAS" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/12g_d9bb-LhxFKcSVHA46exyK7Gw8poDs" alt="Dokumentasi Penilaian Rehab DAS" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/1NXooGwu6dYDXo0249ntsJY3-PSOYj_4G" alt="Dokumentasi Penilaian Rehab DAS" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/1XYBtVflJ4gdCxAllG8hvfcIRtm0Bj6iM" alt="Dokumentasi Penilaian Rehab DAS" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/1FB3ekq-hBQkXldr3J6ZiGkn9hCf3Mki6" alt="Dokumentasi Penilaian Rehab DAS" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/1IsPFy8yr8FM_qguXEAlXDH9N49OX_1q8" alt="Dokumentasi Penilaian Rehab DAS" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/1L-yXaOlmgk-d7MiAXCFLbV9ApczFVtLr" alt="Dokumentasi Penilaian Rehab DAS" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; border: 3px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                <img src="https://lh3.googleusercontent.com/d/1cwuGpNoqObVcswjuj80qc2IDNxuznpcQ" alt="Dokumentasi Penilaian Rehab DAS" style="width: 100%; height: 100%; object-fit: fill; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/300x400?text=Foto';">
+            </div>
+        </div>
     </div>
     
     <div class="slide-footer">
@@ -1262,7 +1681,7 @@ ul.styled-ul li::before {
 <div class="slide-container" id="slide16">
     <div class="qa-layout">
         <i class="fa-solid fa-leaf" style="font-size: 70px; color: #1b4332; margin-bottom: 25px; filter: drop-shadow(0px 5px 10px rgba(0,0,0,0.1));"></i>
-        <h2>Mari Bermitra dengan <br>CV. Adhyasta Sylva Jaya</h2>
+        <h2>Mari Bermitra dengan <br>CV Adhyasta Sylva Jaya</h2>
         <p><b>Mitra Profesional dan Terpercaya dalam Rehabilitasi Hutan, Pemulihan Ekosistem, dan Pengelolaan Lingkungan Berkelanjutan.</b></p>
     </div>
     
@@ -1272,6 +1691,50 @@ ul.styled-ul li::before {
         <div class="footer-item"><i class="fa-solid fa-envelope-open-text"></i> <span>adhyastasylvajaya@gmail.com</span></div>
     </div>
 </div>
+
+    </div>
+  </div>
+  <button class="deck-arrow deck-arrow-left" id="deckPrev" aria-label="Slide sebelumnya"><i class="fa-solid fa-chevron-left"></i></button>
+  <button class="deck-arrow deck-arrow-right" id="deckNext" aria-label="Slide berikutnya"><i class="fa-solid fa-chevron-right"></i></button>
+  <div class="deck-counter" id="deckCounter">1 / 1</div>
+</div>
+
+<script>
+(function(){
+  var track = document.getElementById('deckTrack');
+  var scaler = document.querySelector('.deck-scaler');
+  var slides = Array.prototype.slice.call(track.children).filter(function(el){ return el.classList.contains('slide-container'); });
+  var total = slides.length;
+  var idx = 0;
+
+  function updateScale(){
+    var s = Math.min(window.innerWidth / 1280, window.innerHeight / 720);
+    scaler.style.transform = 'translate(-50%, -50%) scale(' + s + ')';
+  }
+
+  function update(){
+    track.style.transform = 'translateX(-' + (idx * 1280) + 'px)';
+    document.getElementById('deckPrev').disabled = idx === 0;
+    document.getElementById('deckNext').disabled = idx === total - 1;
+    document.getElementById('deckCounter').textContent = (idx + 1) + ' / ' + total;
+  }
+
+  document.getElementById('deckPrev').addEventListener('click', function(){
+    if (idx > 0) { idx--; update(); }
+  });
+  document.getElementById('deckNext').addEventListener('click', function(){
+    if (idx < total - 1) { idx++; update(); }
+  });
+  window.addEventListener('keydown', function(e){
+    if (e.key === 'ArrowRight') { if (idx < total - 1) { idx++; update(); } }
+    if (e.key === 'ArrowLeft') { if (idx > 0) { idx--; update(); } }
+  });
+  window.addEventListener('resize', updateScale);
+
+  updateScale();
+  update();
+})();
+</script>
 
 </body>
 </html>
